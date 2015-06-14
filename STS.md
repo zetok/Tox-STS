@@ -61,12 +61,14 @@ Sending clients, and only the sending clients, are responsible for transforming 
 Receiving clients shall display the received text without applying further transformations to received text. If Unicode emoji characters are not supported on the receiving side, it's time to invest in a better text rendering system.
 
 ###Message splitting
-Clients should split messages at the last whitespace character closest to ``TOX_MAX_MESSAGE_LENGTH`` (Currently 1368) characters. Whitespace character(s) are(is) `` `` (most symbols end with a space). An example of this follows:
+Clients should split messages at the last whitespace character closest to ``TOX_MAX_MESSAGE_LENGTH`` (Currently 1372) characters. Whitespace character(s) are(is) `` `` (most symbols end with a space). In case where there are no whitespaces, client should split at ``TOX_MAX_MESSAGE_LENGTH``
+
+An example of this follows:
 - user enters over ``TOX_MAX_MESSAGE_LENGTH`` characters in a text box.
 - Text box follows with this unless it has some restrictions or breaks the UI scaling.
-- Client splits message at ``TOX_MAX_MESSAGE_LENGTH`` and searches backwards for the next whitespace character.
+- Client splits message at ``TOX_MAX_MESSAGE_LENGTH`` and searches backwards for the next whitespace character. If there are no whitespaces, send data and ommit next step.
 - The data between the start of the set of bytes and the whitespace character are sent
-- The data after the whitespace character is appended to the rest of the message
+- The data after the whitespace character or ``TOX_MAX_MESSAGE_LENGTH`` is appended to the rest of the message
 - the client repeats step 3 until the bytes left is under ``TOX_MAX_MESSAGE_LENGTH``
 - The UI on the sender would show a new sent message for each broken section so they are aware.
 - The receiving client gets multiple separate messages like normal and displays them normally.
