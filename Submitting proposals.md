@@ -26,5 +26,4 @@
 * Antidote - maintainer @dvor
 * Antox - maintainer @subliun
 * qTox - maintainer @tux3
-* Toxy - maintainer @Impyy
 * µTox - maintainer @GrayHatter
